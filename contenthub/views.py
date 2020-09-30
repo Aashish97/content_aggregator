@@ -23,6 +23,8 @@ def hompage(request):
     return render(request, 'index.html',{})
 
 def sharemarket(request):
+    doc = requests.get(sites[0])
+    soup = BeautifulSoup(doc.content, "html5lib")
     data = []
     blocks = soup.find_all('div', {'class':'featured-news-list'})
     for block in blocks:
@@ -31,7 +33,6 @@ def sharemarket(request):
         data.append([headline, image])
     return render(request, 'sharemarket.html', {"data": data})
 
-    
 def politics(request):
     images= []
     headlines=[]
