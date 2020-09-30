@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-hello world
+{% for heading in news %}
+    {{heading}}
+    <br>
+{% endfor %}
 {% endblock %}
