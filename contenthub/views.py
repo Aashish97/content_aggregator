@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import re
 
 # Importing requests and BeautifulSoup for the scraping of the content
 import requests
@@ -12,17 +13,44 @@ from bs4 import BeautifulSoup
     The find_all method searches for all the tags and the class mentioned below
 '''
 
-doc = requests.get("https://www.sharesansar.com/category/latest")
-soup = BeautifulSoup(doc.content,"html5lib")
-headers = soup.find_all('h4', {'class':'featured-news-title'})
+sites = [
+    "https://www.sharesansar.com/category/latest",
+    "https://kathmandupost.com/politics",
+    ]
 
-# news list is assigned empty so that all other news can be appended and can be displayed easily
-news = []
 
-# This appends all the header one by one to the news list in text format
-for header in headers:
-    news.append(header.text)
-
-# Create your views here.
 def hompage(request):
-    return render(request, 'index.html',{"news":news})
+    return render(request, 'index.html',{})
+
+def sharemarket(request):
+    data = []
+    blocks = soup.find_all('div', {'class':'featured-news-list'})
+    for block in blocks:
+        headline = block.findChildren()[5].text
+        image = block.findChildren()[2].get('src')
+        data.append([headline, image])
+    return render(request, 'sharemarket.html', {"data": data})
+
+    
+def politics(request):
+    images= []
+    headlines=[]
+    doc = requests.get(sites[1])
+    soup = BeautifulSoup(doc.content, "html5lib")
+    headers = soup.find_all('h3')
+    image_links = soup.find_all('img',{'class':'lazy img-responsive'})
+    for image in image_links:
+        image_src = str(image.get('data-src'))
+        clean_image = re.split('[=|&]', image_src)
+        print("clean image url >>>", clean_image)
+        # if (clean_image[1] == 0):
+        #     print("first image>>>", image_src)
+        #     images.append(image_src)
+        # else:
+        #     print("second image>>>", clean_image[1])
+        #     images.append(clean_image)
+    for header in headers:
+        headlines.append(header.text)
+    return render(request, 'politics.html',{"headlines":headlines, "images": images})
+
+
