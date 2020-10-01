@@ -30,28 +30,22 @@ def sharemarket(request):
     for block in blocks:
         headline = block.findChildren()[5].text
         image = block.findChildren()[2].get('src')
-        data.append([headline, image])
-    return render(request, 'sharemarket.html', {"data": data})
+        readmore = block.findChildren()[1].get('href')
+        data.append([headline, image, readmore])
+    return render(request, './../templates/contents.html', {"data": data})
 
 def politics(request):
-    images= []
-    headlines=[]
     doc = requests.get(sites[1])
     soup = BeautifulSoup(doc.content, "html5lib")
-    headers = soup.find_all('h3')
-    image_links = soup.find_all('img',{'class':'lazy img-responsive'})
-    for image in image_links:
-        image_src = str(image.get('data-src'))
-        clean_image = re.split('[=|&]', image_src)
-        print("clean image url >>>", clean_image)
-        # if (clean_image[1] == 0):
-        #     print("first image>>>", image_src)
-        #     images.append(image_src)
-        # else:
-        #     print("second image>>>", clean_image[1])
-        #     images.append(clean_image)
-    for header in headers:
-        headlines.append(header.text)
-    return render(request, 'politics.html',{"headlines":headlines, "images": images})
+    data = []
+    blocks = soup.find_all('article', {'class':'article-image'})
+    for block in blocks:
+        headline = block.findChildren()[5].text
+        image_src = block.findChildren()[3].get('data-src')
+        image = re.split('[=|&]', image_src)[1]
+        readmore ="https://kathmandupost.com" + block.findChildren()[2].get('href')
+        data.append([headline, image, readmore])
+    return render(request, './../templates/contents.html', {"data": data})
+
 
 
