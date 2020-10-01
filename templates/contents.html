@@ -1,6 +1,6 @@
-{% extends 'base.html' %} 
-{% block content %}
-<div class="container">
+{% extends 'base.html' %} {% block content %}
+<div class="container pt-5">
+  <h2>{{content}}</h2>
   <div class="row row-cols-1 row-cols-md-3">
     {% for info in data %}
     <div class="col mb-4">
@@ -9,7 +9,7 @@
         <div class="card-body">
           <h5 class="card-title">{{info.0}}</h5>
           {% if info.3 %}
-            <p>{{info.3}}</p>
+          <p>{{info.3}}</p>
           {% endif %}
           <button
             type="button"

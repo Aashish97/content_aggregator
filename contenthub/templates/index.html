@@ -1,34 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-3">
-  {% if data %}
-    {% for info in data %}
-    {% for every_data in info %}
-    <div class="col mb-4">
-      <div class="card">
-        <img src="{{every_data.1}}" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title">{{every_data.0}}</h5>
-          {% if every_data.3 %}
-            <p>{{every_data.3}}</p>
-          {% endif %}
-          <button
-            type="button"
-            class="btn btn-info"
-            onclick="window.location='{{info.2}}';"
-          >
-            Readmore
-          </button>
+    <h1>THIS IS HOME PAGE</h1>
+    <h3>SUBSCRIBE TOPIC FOR THE CONTENT</h3>
+    <form action="{% url 'contents' %}" method="POST">
+        <div class="input-group">
+            {% csrf_token %}
+            <select class="select" id="inputGroupSelect04" name="dropdown">
+                <option selected value="Sharemarket">Sharemarket</option>
+                <option value="Gadgets">Gadgets</option>
+                <option value="Sports">Sports</option>
+                <option value="Politics">Politics</option>
+                <option value="Jobs">Jobs</option>
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary bg-success text-white" type="submit">Subscribe</button>
+            </div>
         </div>
-      </div>
-    </div>
-    {% endfor %}
-    {% endfor %}
-{% endif %}
-  </div>
-<h1>THIS IS HOME PAGE</h1>
-<h3>SUBSCRIBE TOPIC FOR THE CONTENT</h3>
+    </form>
 </div>
 <br />
 {% endblock %}
