@@ -8,6 +8,9 @@
         <img src="{{info.1}}" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{info.0}}</h5>
+          {% if info.3 %}
+            <p>{{info.3}}</p>
+          {% endif %}
           <button
             type="button"
             class="btn btn-info"
