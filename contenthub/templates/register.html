@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <form method="POST" id="signup-form" class="signup-form">
+    {% csrf_token %}
+    <h2>Create account</h2>
+    <p>Username: {{form.username}}</p>
+    <p>Email address: {{form.email}}</p>
+    <p>Password: {{form.password1}}</p>
+    <p>Confirm password: {{form.password2}}</p>
+    <input
+      type="submit"
+      name="submit"
+      id="submit"
+      class="form-submit"
+      value="Sign up"
+    />
+  </form>
+
+  {{form.errors}}
+
+  <p>
+    Have already an account ?
+    <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+  </p>
+</div>
+{% endblock %}

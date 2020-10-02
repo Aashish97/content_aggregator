@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container pt-5">
+  <h2>{{content}}</h2>
+  <div class="row row-cols-1 row-cols-md-3">
+    {% for info in data %}
+    <div class="col mb-4">
+      <div class="card">
+        <img src="{{info.image}}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{info.headline}}</h5>
+          {% if info.body %}
+          <p>{{info.body}}</p>
+          {% endif %}
+          <button
+            type="button"
+            class="btn btn-info"
+            onclick="window.location='{{info.2}}', '_blank';"
+          >
+            Readmore
+          </button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<br />
+{% endblock %}

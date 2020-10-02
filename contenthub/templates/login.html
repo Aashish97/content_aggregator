@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div class="signup-content">
+    <form method="POST">
+      {% csrf_token %}
+      <h2>Login</h2>
+      <div>
+        <input type="text" name="username" placeholder="Username" />
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="Password" />
+      </div>
+
+      <div>
+        <input type="submit" name="submit" value="Login" />
+      </div>
+    </form>
+
+    {% for message in messages %}
+    <p id="messages">{{message}}</p>
+    {% endfor %}
+
+    <p class="loginhere">
+      Don't have an account?
+      <a href="{% url 'register' %}" class="loginhere-link">Sign Up</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
