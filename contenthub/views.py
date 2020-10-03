@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import re
+from .models import Content
+from django.conf import settings
+from . import cron
 
 # for authentication
 from django.contrib.auth.forms import UserCreationForm
@@ -21,14 +24,6 @@ from bs4 import BeautifulSoup
     The find_all method searches for all the tags and the class mentioned below
 '''
 
-sites = [
-    "https://www.sharesansar.com/category/latest",
-    "https://www.gsmarena.com/news.php3",
-    "https://kathmandupost.com/sports",
-    "https://kathmandupost.com/politics",
-    "https://merojob.com/search/",
-    ]
-
 @login_required(login_url="login")
 def hompage(request):
     return render(request, 'index.html',{})
@@ -39,112 +34,24 @@ def contents(request):
         content = request.POST["dropdown"]
 
         if content == "Sharemarket":
-            doc = requests.get(sites[0])
-            soup = BeautifulSoup(doc.content, "html5lib")
-            data = []
-            blocks = soup.find_all('div', {'class':'featured-news-list'})
-            for block in blocks:
-                headline = block.findChildren()[5].text
-                image = block.findChildren()[2].get('src')
-                readmore = block.findChildren()[1].get('href')
-                # dictionary for api related stuffs
-                news = {
-                    "headline": headline,
-                    "image": image,
-                    "link": readmore
-                }
-                """
-                for json output
-                    return JsonResponse(data)
-                """
-                data.append(news)
-            return render(request, './../templates/content.html', {"data": data, "content": content })
+            data = Content.objects.filter(tag="Shares")
+            return render(request, './../templates/content.html', {"data": data})
 
         elif content == "Gadgets":
-            doc = requests.get(sites[1])
-            soup = BeautifulSoup(doc.content, "html5lib")
-            data = []
-            blocks = soup.find_all('div', {'class':'news-item'})
-            for block in blocks:
-                headline = block.findChildren()[4].text
-                image = block.findChildren()[2].get('src')
-                readmore ="https://www.gsmarena.com/" + block.findChildren()[1].get('href')
-
-                # dictionary for api related stuffs
-                news = {
-                    "headline": headline,
-                    "image": image,
-                    "link": readmore
-                }
-                data.append(news)
-            return render(request, './../templates/content.html', {"data": data, "content": content })
+            data = Content.objects.filter(tag="Gadgets")
+            return render(request, './../templates/content.html', {"data": data})
 
         if content == "Sports":
-            doc = requests.get(sites[2])
-            soup = BeautifulSoup(doc.content, "html5lib")
-            data = []
-            blocks = soup.find_all('article', {'class':'article-image'})
-            for block in blocks:
-                headline = block.findChildren()[5].text
-                image_src = block.findChildren()[3].get('data-src')
-                image = re.split('[=|&]', image_src)[1]
-                readmore ="https://kathmandupost.com" + block.findChildren()[2].get('href')
-
-                # dictionary for api related stuffs
-                news = {
-                    "headline": headline,
-                    "image": image,
-                    "link": readmore
-                }
-                data.append(news)
-            return render(request, './../templates/content.html', {"data": data, "content": content })
+            data = Content.objects.filter(tag="Sports")
+            return render(request, './../templates/content.html', {"data": data})
 
         elif content == "Politics":
-            doc = requests.get(sites[3])
-            soup = BeautifulSoup(doc.content, "html5lib")
-            data = []
-            blocks = soup.find_all('article', {'class':'article-image'})
-            for block in blocks:
-                headline = block.findChildren()[5].text
-                image_src = block.findChildren()[3].get('data-src')
-                image = re.split('[=|&]', image_src)[1]
-                readmore ="https://kathmandupost.com" + block.findChildren()[2].get('href')
-
-                # dictionary for api related stuffs
-                news = {
-                    "headline": headline,
-                    "image": image,
-                    "link": readmore
-                }
-                data.append(news)
-            return render(request, './../templates/content.html', {"data": data, "content": content })
+            data = Content.objects.filter(tag="Politics")
+            return render(request, './../templates/content.html', {"data": data})
 
         else:
-            doc = requests.get(sites[4])
-            soup = BeautifulSoup(doc.content, "html5lib")
-            data = []
-            blocks = soup.find_all('div', {'class':'hover-shadow'})
-            for block in blocks:
-                readmore ="https://merojob.com" +   block.findChildren()[4].find('a').get('href')
-                headline = block.findChildren()[4].find('h1').text
-                organization = block.findChildren()[5].find('meta').get('content')
-                skills = block.findChildren()[28].text
-                image ="https://merojob.com" +  block.findChildren()[5].find('img').get('src')
-                raw_body = organization + " (" + skills + ")"
-                body = re.sub(' +', ' ', raw_body)
-
-                # dictionary for api related stuffs
-                news = {
-                    "headline": headline,
-                    "image": image,
-                    "link": readmore
-                }
-                data.append(news)
-            """
-            for json output
-                return JsonResponse(data)
-            """
-            return render(request, './../templates/content.html', {"data": data, "content": content })
+            data = Content.objects.filter(tag="Jobs")
+            return render(request, './../templates/content.html', {"data": data})
 
 def register_user(request):
     if request.user.is_authenticated:
@@ -184,4 +91,4 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('login')                  
