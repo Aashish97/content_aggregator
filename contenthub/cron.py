@@ -29,7 +29,9 @@ def CronJob():
                     content.image = block.findChildren()[2].get('src')
                     content.link = block.findChildren()[1].get('href')
                     content.tag = "Shares"
-                    content.save()
+                    data = Content.objects.filter(tag="Shares").filter(headline=content.headline)
+                    if len(data) == 0:
+                        content.save()
                 except:
                     print("duplicate headline")
 
@@ -44,7 +46,9 @@ def CronJob():
                     content.image = block.findChildren()[2].get('src')
                     content.link ="https://www.gsmarena.com/" + block.findChildren()[1].get('href')
                     content.tag = "Gadgets"
-                    content.save()
+                    data = Content.objects.filter(tag="Gadgets").filter(headline=content.headline)
+                    if len(data) == 0:
+                        content.save()
                 except:
                     print("duplicate headline")
 
@@ -60,7 +64,9 @@ def CronJob():
                     content.image = re.split('[=|&]', image_src)[1]
                     content.link ="https://kathmandupost.com" + block.findChildren()[2].get('href')
                     content.tag = "Sports"
-                    content.save()
+                    data = Content.objects.filter(tag="Sports").filter(headline=content.headline)
+                    if len(data) == 0:
+                        content.save()
                 except:
                     print("duplicate headline")
 
@@ -76,7 +82,9 @@ def CronJob():
                     content.image = re.split('[=|&]', image_src)[1]
                     content.link ="https://kathmandupost.com" + block.findChildren()[2].get('href')
                     content.tag = "Politics"
-                    content.save()
+                    data = Content.objects.filter(tag="Politics").filter(headline=content.headline)
+                    if len(data) == 0:
+                        content.save()
                 except:
                     print("duplicate headline")
         
@@ -95,7 +103,9 @@ def CronJob():
                     raw_body = organization + " (" + skills + ")"
                     content.body = re.sub(' +', ' ', raw_body)
                     content.tag = "Jobs"
-                    content.save()
+                    data = Content.objects.filter(tag="Jobs").filter(headline=content.headline)
+                    if len(data) == 0:
+                        content.save()
                 except:
                     print("duplicate headline")
 

@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 # Cron job
 
 CRONJOBS = [
-    ('* */4 * * *', 'contenthub.cron.CronJob')
+    ('* * * * *', 'contenthub.cron.CronJob')
 ]
 
 MIDDLEWARE = [
@@ -106,6 +106,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 4000
 
 
 # Internationalization
