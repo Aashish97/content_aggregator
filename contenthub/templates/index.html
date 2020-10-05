@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <h3>SUBSCRIBE TOPIC FOR SPECIFIC CONTENT</h3>
-    <form action="{% url 'contents' %}" method="POST">
+    <form action="{% url 'content_list' %}" method="POST">
         <div class="input-group">
             {% csrf_token %}
             <select class="select" id="inputGroupSelect04" name="dropdown">
