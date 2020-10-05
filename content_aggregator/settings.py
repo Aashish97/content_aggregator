@@ -40,7 +40,18 @@ INSTALLED_APPS = [
     'contenthub',
     'django_crontab',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
+
+# Rest framework for authentication purpose
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
 
 # Cron job
 

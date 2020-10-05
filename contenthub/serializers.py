@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Content
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
+        Token.objects.create(user=user)
         return user
 
 class ContentSerializer(serializers.ModelSerializer):
