@@ -1,26 +1,35 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 <div class="container">
-  <form method="POST" id="signup-form" class="signup-form">
-    {% csrf_token %}
-    <h2>Create account</h2>
-    <p>Username: {{form.username}}</p>
-    <p>Email address: {{form.email}}</p>
-    <p>Password: {{form.password1}}</p>
-    <p>Confirm password: {{form.password2}}</p>
-    <input
-      type="submit"
-      name="submit"
-      id="submit"
-      class="form-submit"
-      value="Sign up"
-    />
-  </form>
+  <div class="col-md-6 mx-auto bg-info">
 
-  {{form.errors}}
+    <form method="POST" id="signup-form" class="signup-form">
+      {% csrf_token %}
+      <h2 class="text-center m-5 pt-5"><strong>Create account</strong></h2>
+      <div class="form-group m-4">
+        {{form.username}}
+      </div>
+      <div class="form-group m-4">
+        {{form.email}}
+      </div>
+      <div class="form-group m-4">
+        {{form.password1}}
+      </div>
+      <div class="form-group m-4">
+        {{form.password2}}
+      </div>
+      <div class="d-flex justify-content-center mb-4">
+        <button type="submit" class="btn btn-success" id="button">Signup</button>
+      </div>
+    </form>
 
-  <p>
-    Have already an account ?
-    <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
-  </p>
+    {{form.errors}}
+
+    <p class="text-center pb-4">
+      Have already an account ?
+      <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+    </p>
+
+  </div>
 </div>
 {% endblock %}
