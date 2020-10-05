@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'contenthub',
     'django_crontab',
+    'rest_framework',
 ]
 
 # Cron job
