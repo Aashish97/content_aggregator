@@ -16,7 +16,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="login")
 def hompage(request):
-    return render(request, 'index.html',{})
+    data = Content.objects.all().order_by('?')[:20]
+    return render(request, 'index.html',{"data": data})
 
 @login_required(login_url="login")
 def contents(request):

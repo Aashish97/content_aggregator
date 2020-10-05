@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1>THIS IS HOME PAGE</h1>
-    <h3>SUBSCRIBE TOPIC FOR THE CONTENT</h3>
+    <h3>SUBSCRIBE TOPIC FOR SPECIFIC CONTENT</h3>
     <form action="{% url 'contents' %}" method="POST">
         <div class="input-group">
             {% csrf_token %}
@@ -16,6 +15,27 @@
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary bg-success text-white" type="submit">Subscribe</button>
             </div>
+
+            <div class="row row-cols-1 row-cols-md-3 mt-5">
+            {% for info in data %}
+            <div class="col mb-4">
+            <div class="card">
+                <img src="{{info.image}}" class="card-img-top" />
+                <div class="card-body">
+                <h5 class="card-title">{{info.headline}}</h5>
+                {% if info.body %}
+                <p>{{info.body}}</p>
+                {% endif %}
+                <button type="button" class="btn btn-info" onclick="window.location='{{info.link}}';">
+                    Readmore
+                </button>
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+
+            
         </div>
     </form>
 </div>
