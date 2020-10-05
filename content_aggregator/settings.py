@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 # Cron job
 
 CRONJOBS = [
-    ('* * * * *', 'contenthub.cron.CronJob')
+    ('0 */4 * * *', 'contenthub.cron.CronJob')
 ]
 
 MIDDLEWARE = [

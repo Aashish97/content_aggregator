@@ -24,7 +24,6 @@ def contents(request):
         content = request.POST["dropdown"]
         data = Content.objects.filter(tag=content)
         return render(request, './../templates/content.html', {"data": data})
-
 def register_user(request):
     if request.user.is_authenticated:
         return redirect('homepage')

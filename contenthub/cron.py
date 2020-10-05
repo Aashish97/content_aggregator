@@ -6,6 +6,14 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
+'''
+    doc variable stores all the html contents from the given link
+    soup variable stores all the elements of the that doc variable
+    html5lib is the parser which converts the html documents into the text format
+    headers variable lists all the documents with matches the given condition
+    The find_all method searches for all the tags and the class mentioned below
+'''
+
 sites = [
     "https://www.sharesansar.com/category/latest",
     "https://www.gsmarena.com/news.php3",
@@ -55,7 +63,7 @@ def CronJob():
         elif site == sites[2]:
             doc = requests.get(sites[2])
             soup = BeautifulSoup(doc.content, "html5lib")
-            blocks = soup.find_all('article', {'class':'article-image'})
+            blocks = soup.find_all('article', {'class':'article-image'})[0:20]
             for block in blocks:
                 try:
                     content = Content()
@@ -73,7 +81,7 @@ def CronJob():
         elif site == sites[3]:
             doc = requests.get(sites[3])
             soup = BeautifulSoup(doc.content, "html5lib")
-            blocks = soup.find_all('article', {'class':'article-image'})
+            blocks = soup.find_all('article', {'class':'article-image'})[0:20]
             for block in blocks:
                 try:
                     content = Content()
