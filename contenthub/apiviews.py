@@ -3,7 +3,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import Content
-from .serializers import ContentSerializer
+from .serializers import ContentSerializer, UserSerializer
+
+
+class UserCreate(generics.CreateAPIView):
+    serializer_class = UserSerializer
 
 @api_view(['GET', 'POST'])
 def ContentList(request):

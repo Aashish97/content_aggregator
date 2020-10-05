@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-from .apiviews import ContentList
+from .apiviews import ContentList, UserCreate
 
 urlpatterns = [
     path('', views.hompage, name='homepage'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
     path("contentapi/", ContentList, name="content_list"),
     path('contents/', views.contents, name='contents'),
+    path("users/", UserCreate.as_view(), name="user_create"),
 ]
