@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Register page for the system rendering register view context variable -->
+
+<div class="container">
+  <div class="col-md-6 mx-auto bg-info">
+
+    <form method="POST" id="signup-form" class="signup-form">
+      {% csrf_token %}
+      <h2 class="text-center m-5 pt-5"><strong>Create account</strong></h2>
+      <div class="form-group m-4">
+        {{form.username}}
+      </div>
+      <div class="form-group m-4">
+        {{form.email}}
+      </div>
+      <div class="form-group m-4">
+        {{form.password1}}
+      </div>
+      <div class="form-group m-4">
+        {{form.password2}}
+      </div>
+      <div class="d-flex justify-content-center mb-4">
+        <button type="submit" class="btn btn-success" id="button">Signup</button>
+      </div>
+    </form>
+
+    {{form.errors}}
+
+    <p class="text-center pb-4">
+      Have already an account ?
+      <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}

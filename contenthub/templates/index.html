@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+
+    <!-- 
+        Checks whether user subscribe the topic related to html content of the API content 
+        If user selects the html content to be displayed 'contents' name i.e /contents url is dispatched
+        Else 'contentapi' name i.e /contentapi url is dispatch with respective views
+    -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="text-center">Subscribe topic for specific content</h3>
+            <form action="{% url 'contents' %}" method="POST">
+                <div class="input-group d-flex justify-content-center">
+                    {% csrf_token %}
+                    <select class="select" id="inputGroupSelect04" name="dropdown">
+                        <option selected value="Shares">Sharemarket</option>
+                        <option value="Gadgets">Gadgets</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Politics">Politics</option>
+                        <option value="Jobs">Jobs</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-success text-white" type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    
+        <div class="col-md-6">
+            <h3 class="text-center">Subscribe topic for API</h3>
+            <form action="{% url 'content_list' %}" method="POST">
+                <div class="input-group d-flex justify-content-center">
+                    {% csrf_token %}
+                    <select class="select" id="inputGroupSelect04" name="dropdown">
+                        <option selected value="Shares">Sharemarket</option>
+                        <option value="Gadgets">Gadgets</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Politics">Politics</option>
+                        <option value="Jobs">Jobs</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-success text-white" type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Displays the 18 contents from the database in random manner(random topics and random content) -->
+
+    <h2 class="pt-5">Some News</h2>
+    <div class="row row-cols-1 row-cols-md-3 mt-2">
+        {% for info in data %}
+        <div class="col mb-4">
+            <div class="card" style="height: 32rem;">
+                <img src="{{info.image}}" class="card-img-top" style="height: 18rem;"/>
+                <div class="card-body">
+                    <h5 class="card-title">{{info.headline}}</h5>
+                    {% if info.body %}
+                    <p>{{info.body}}</p>
+                    {% endif %}
+                    <button type="button" class="btn btn-info" onclick="window.location='{{info.link}}';">
+                        Readmore
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<br />
+{% endblock %}
