@@ -3,6 +3,8 @@ from . import views
 
 from .apiviews import ContentList, UserCreate, LoginView
 
+# List all the possible url routes of the site
+
 urlpatterns = [
     path('', views.hompage, name='homepage'),
     path('register/', views.register_user, name='register'),

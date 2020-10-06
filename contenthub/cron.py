@@ -7,12 +7,15 @@ import requests
 from bs4 import BeautifulSoup
 
 '''
+    Beautiful soup is the library used for scraping the web contents in simple way
     doc variable stores all the html contents from the given link
     soup variable stores all the elements of the that doc variable
     html5lib is the parser which converts the html documents into the text format
     headers variable lists all the documents with matches the given condition
     The find_all method searches for all the tags and the class mentioned below
 '''
+
+# sites list all the sites for scrapping the content
 
 sites = [
     "https://www.sharesansar.com/category/latest",
@@ -22,7 +25,16 @@ sites = [
     "https://merojob.com/search/",
     ]
 
+'''
+    CronJob saves the data from the above listed site and saves the data to the database
+    CronJob iterates every single site mentioned above
 
+    try block checks if the data are scraped or not; if yes saves the data otherwise it moves to next loop
+    Database instances are created and manipulated accordingly
+
+    Content.objects.filter(tag="").filter(headline="") checks whether the headline already exists in database or not
+        if there is some content then it doesn't saves the data which helps in unique content in database always
+'''
 
 def CronJob():
     for site in sites:

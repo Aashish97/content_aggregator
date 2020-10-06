@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
+
+    <!-- 
+        Checks whether user subscribe the topic related to html content of the API content 
+        If user selects the html content to be displayed 'contents' name i.e /contents url is dispatched
+        Else 'contentapi' name i.e /contentapi url is dispatch with respective views
+    -->
+
     <div class="row">
         <div class="col-md-6">
             <h3 class="text-center">Subscribe topic for specific content</h3>
@@ -40,6 +47,8 @@
             </form>
         </div>
     </div>
+
+    <!-- Displays the 18 contents from the database in random manner(random topics and random content) -->
 
     <div class="row row-cols-1 row-cols-md-3 mt-5">
         {% for info in data %}

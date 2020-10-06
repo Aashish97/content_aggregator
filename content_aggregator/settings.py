@@ -53,7 +53,7 @@ REST_FRAMEWORK = {
 }
 
 
-# Cron job
+# Scheduling cronjobs for every 4 hours
 
 CRONJOBS = [
     ('0 */4 * * *', 'contenthub.cron.CronJob')
@@ -119,6 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Defining maximum number of fields to upload and delete
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 4000
 
 

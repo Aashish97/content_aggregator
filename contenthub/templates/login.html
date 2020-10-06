@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!-- Login page for the system rendering login view context variable -->
+
 <div class="container">
   <div class="col-md-5 mx-auto bg-info mb-5">
 
@@ -17,7 +19,9 @@
         <button type="submit" class="btn btn-success" id="button">Login</button>
       </div>
     </form>
-
+    
+    <!-- Any form related error are displayed -->
+    
     {{form.errors}}
 
     <p class="text-center p-3">

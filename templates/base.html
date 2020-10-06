@@ -13,6 +13,9 @@
 </head>
 
 <body>
+
+    <!-- Base content is used across every other place just by extending this html file -->
+
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark h6 pt-3 pb-3">
             <div class="container">
@@ -34,7 +37,10 @@
         </nav>
     </header>
 
-    {% block content %} {% endblock %}
+    <!-- All the other pages stuffs lies between these block -->
+
+    {% block content %} 
+    {% endblock %}
 
     <footer>
         <section class="bg-dark text-center text-white pt-3 d-flex justify-content-around pb-1">
