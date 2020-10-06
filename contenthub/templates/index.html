@@ -50,11 +50,12 @@
 
     <!-- Displays the 18 contents from the database in random manner(random topics and random content) -->
 
-    <div class="row row-cols-1 row-cols-md-3 mt-5">
+    <h2 class="pt-5">Some News</h2>
+    <div class="row row-cols-1 row-cols-md-3 mt-2">
         {% for info in data %}
         <div class="col mb-4">
-            <div class="card">
-                <img src="{{info.image}}" class="card-img-top" />
+            <div class="card"  style="height: 32rem;">
+                <img src="{{info.image}}" class="card-img-top"  style="height: 18rem;"/>
                 <div class="card-body">
                     <h5 class="card-title">{{info.headline}}</h5>
                     {% if info.body %}
