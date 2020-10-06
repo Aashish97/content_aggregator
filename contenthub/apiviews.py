@@ -48,7 +48,7 @@ class LoginView(APIView):
 def ContentList(request):
     if request.method == 'POST':
         category = request.POST["dropdown"]
-        data = Content.objects.filter(tag=category)
+        data = Content.objects.filter(tag=category).order_by("-id")
         serializer = ContentSerializer(data, many=True)
         return Response(serializer.data)
     return Response({"message": "No data found"})

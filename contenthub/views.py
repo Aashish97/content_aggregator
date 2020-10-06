@@ -35,8 +35,8 @@ def hompage(request):
 def contents(request):
     if request.method == "POST":
         content = request.POST["dropdown"]
-        data = Content.objects.filter(tag=content)
-        return render(request, './../templates/content.html', {"data": data})
+        data = Content.objects.filter(tag=content).order_by("-id")
+        return render(request, 'content.html', {"data": data})
 
 
 '''
